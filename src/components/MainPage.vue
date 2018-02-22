@@ -20,135 +20,134 @@
       <h3>O wiarygodności newsa</h3>
       <div class="row">
         <div class="col">
-          <div id="accordion fact-criteria">
-            <div class="card">
-              <div class="card-header" id="eval-author" data-toggle="collapse" data-target="#collapse-author">
-                <h5 class="mb-0 d-flex justify-content-between">
+          <div id="fact-criteria" role="tablist">
+            <b-card no-body class="mb-1">
+              <b-card-header header-tag="header" class="p-1" role="tab">
+                <b-btn block href="#" v-b-toggle.criteriaAuthor variant="info" class="mb-0 d-flex justify-content-between">
                   <span class="loader">
-                    <font-awesome-icon icon="spinner" pulse />
-                    <font-awesome-icon icon="question-circle" />
-                    <font-awesome-icon icon="times" class="criteria-false" />
-                    <font-awesome-icon icon="check" class="criteria-true" />
+                    <font-awesome-icon icon="spinner" pulse v-if="criteriaAuthor.loading" />
+                    <font-awesome-icon icon="question-circle" v-if="criteriaAuthor.unknown" />
+                    <font-awesome-icon icon="times" class="criteria-false" v-if="criteriaAuthor.checkedFalse" />
+                    <font-awesome-icon icon="check" class="criteria-true" v-if="criteriaAuthor.checkedTrue" />
                     Autor
                   </span>
                   <span>
                     <font-awesome-icon icon="chevron-down" />
                     <!--<font-awesome-icon icon="chevron-up" />-->
                   </span>
-                </h5>
-              </div>
-              <div id="collapse-author" class="collapse collapsed" aria-labelledby="eval-author" data-parent="#fact-criteria">
-                <div class="card-body">
-                  <p>
+                </b-btn>
+              </b-card-header>
+              <b-collapse id="criteriaAuthor" accordion="criteria-accordion" role="tabpanel">
+                <b-card-body>
+                  <p class="card-text">
                     Jeśli ktoś podpisuje się swoim nazwiskiem, nie boi się, że jego nazwisko zostanie powiązane z tekstem.
                     Taki tekst wydaje się być bardziej wiarygodny od niepodpisanego. Sprawdź, czy autor postu istnieje i pisał
                     wcześnej na podobne tematy.
                   </p>
-                  <p>
+                  <p class="card-text">
                     <strong>Autor analizowanego newsa: <span>{{ newsAuthorDecision }}</span></strong>
                   </p>
-                </div>
-              </div>
-            </div>
+                </b-card-body>
+              </b-collapse>
+            </b-card>
 
-            <div class="card">
-              <div class="card-header" id="eval-relevance" data-toggle="collapse" data-target="#collapse-relevance">
-                <h5 class="mb-0 d-flex justify-content-between">
+            <b-card no-body class="mb-1">
+              <b-card-header header-tag="header" class="p-1" role="tab">
+                <b-btn block href="#" v-b-toggle.criteriaRelevance variant="info" class="mb-0 d-flex justify-content-between">
                   <span>
-                    <font-awesome-icon icon="spinner" pulse />
-                    <font-awesome-icon icon="question-circle" />
-                    <font-awesome-icon icon="times" class="criteria-false" />
-                    <font-awesome-icon icon="check" class="criteria-true" />
+                    <font-awesome-icon icon="spinner" pulse v-if="criteriaRelevance.loading" />
+                    <font-awesome-icon icon="question-circle" v-if="criteriaRelevance.unknown" />
+                    <font-awesome-icon icon="times" class="criteria-false" v-if="criteriaRelevance.checkedFalse" />
+                    <font-awesome-icon icon="check" class="criteria-true" v-if="criteriaRelevance.checkedTrue" />
                     Istotność źródła
                   </span>
                   <span>
                     <font-awesome-icon icon="chevron-down" />
                     <!--<font-awesome-icon icon="chevron-up" />-->
                   </span>
-                </h5>
-              </div>
-              <div id="collapse-relevance" class="collapse collapsed" aria-labelledby="eval-relevance" data-parent="#fact-criteria">
-                <div class="card-body">
-                  <p>
+                </b-btn>
+              </b-card-header>
+              <b-collapse id="criteriaRelevance" accordion="criteria-accordion" role="tabpanel">
+                <b-card-body>
+                  <p class="card-text">
                     Newsy pochodzące z poważnych serwisów informacyjnych są bardziej wiarygodne, niż te, które znajdziemy na
                     portalach plotkarskich. Źródło sprawdzanego przez Ciebie newsa zostało zakwalifikowane do jednej z czterech
                     kategorii określających jego jakość: nieznane źródło, niepewne źródło, przyzwoite źródło, zaufane źródło.
                   </p>
-                  <p>
+                  <p class="card-text">
                     <strong>Istotność źródła: <span>{{ sourceRelevance }}</span></strong> <br>
                   </p>
-                </div>
-              </div>
-            </div>
+                </b-card-body>
+              </b-collapse>
+            </b-card>
 
-            <div class="card">
-              <div class="card-header" id="eval-similar" data-toggle="collapse" data-target="#collapse-similar">
-                <h5 class="mb-0 d-flex justify-content-between">
+            <b-card no-body class="mb-1">
+              <b-card-header header-tag="header" class="p-1" role="tab">
+                <b-btn block href="#" v-b-toggle.criteriaSimilar variant="info" class="mb-0 d-flex justify-content-between">
                   <span>
-                    <font-awesome-icon icon="spinner" pulse />
-                    <font-awesome-icon icon="question-circle" />
-                    <font-awesome-icon icon="times" class="criteria-false" />
-                    <font-awesome-icon icon="check" class="criteria-true" />
+                    <font-awesome-icon icon="spinner" pulse v-if="criteriaSimilar.loading" />
+                    <font-awesome-icon icon="question-circle" v-if="criteriaSimilar.unknown" />
+                    <font-awesome-icon icon="times" class="criteria-false" v-if="criteriaSimilar.checkedFalse" />
+                    <font-awesome-icon icon="check" class="criteria-true" v-if="criteriaSimilar.checkedTrue" />
                     Podobne newsy
                   </span>
                   <span>
                     <font-awesome-icon icon="chevron-down" />
                     <!--<font-awesome-icon icon="chevron-up" />-->
                   </span>
-                </h5>
-              </div>
-              <div id="collapse-similar" class="collapse collapsed" aria-labelledby="eval-similar" data-parent="#fact-criteria">
-                <div class="card-body">
-                  <p>
+                </b-btn>
+              </b-card-header>
+              <b-collapse id="criteriaSimilar" accordion="criteria-accordion" role="tabpanel">
+                <b-card-body>
+                  <p class="card-text">
                     Większość sprawdzonych informacji publikowana jest w wielu różnych mediach. Jeśli o Twoim newsie pisze kilka
                     portali, to istnieje większa szansa, że informacje, które zawiera są sprawdzone. Pamiętaj jednak, że należy
                     krytycznie spojrzeć na to, jakie portale piszą o Twoim newsie.
                   </p>
-                  <p>
+                  <p class="card-text">
                     <strong>Podobne newsy: <span>{{ similarNewsDecision }}</span></strong>
                   </p>
-                  <ul id="criteria-neighbours-list">
-                    <!--<li v-for="news in similarNewsList">-->
-                      <!--<a href="#">{{ news }}</a>-->
+                  <!--<ul id="criteria-neighbours-list">-->
+                    <!--<li v-for="{newsId, newsName, newsHref} in similarNewsList" :key="`news-${newsId}`">-->
+                      <!--<a :href="newsHref">{{ newsName }}</a>-->
                     <!--</li>-->
-                  </ul>
-                </div>
-              </div>
-            </div>
+                  <!--</ul>-->
+                </b-card-body>
+              </b-collapse>
+            </b-card>
 
-            <div class="card">
-              <div class="card-header" id="eval-clickbaits" data-toggle="collapse" data-target="#collapse-clickbaits">
-                <h5 class="mb-0 d-flex justify-content-between">
+            <b-card no-body class="mb-1">
+              <b-card-header header-tag="header" class="p-1" role="tab">
+                <b-btn block href="#" v-b-toggle.criteriaClickbaits variant="info" class="mb-0 d-flex justify-content-between">
                   <span>
-                    <font-awesome-icon icon="spinner" pulse />
-                    <font-awesome-icon icon="question-circle" />
-                    <font-awesome-icon icon="times" class="criteria-false" />
-                    <font-awesome-icon icon="check" class="criteria-true" />
+                    <font-awesome-icon icon="spinner" pulse v-if="criteriaClickbaits.loading" />
+                    <font-awesome-icon icon="question-circle" v-if="criteriaClickbaits.unknown" />
+                    <font-awesome-icon icon="times" class="criteria-false" v-if="criteriaClickbaits.checkedFalse" />
+                    <font-awesome-icon icon="check" class="criteria-true" v-if="criteriaClickbaits.checkedTrue" />
                     Brak słów-haczyków (tzw. clickbait)
                   </span>
                   <span>
                     <font-awesome-icon icon="chevron-down" />
                     <!--<font-awesome-icon icon="chevron-up" />-->
                   </span>
-                </h5>
-              </div>
-              <div id="collapse-clickbaits" class="collapse collapsed" aria-labelledby="eval-clickbaits" data-parent="#fact-criteria">
-                <div class="card-body">
-                  <p>
+                </b-btn>
+              </b-card-header>
+              <b-collapse id="criteriaClickbaits" accordion="criteria-accordion" role="tabpanel">
+                <b-card-body>
+                  <p class="card-text">
                     Sensacyjne nagłówki i wzbudzające emocje słowa obniżają wiarygodność artykułu. Mogą one być sygnałem, że
                     autorowi nie zależy na przekazaniu rzetelnych informacji, ale na przyciągnięciu czytelników.
                   </p>
-                  <p>
+                  <p class="card-text">
                     <strong>Słowa-haczyki: <span>{{ clickbaitsDecision }}</span></strong>
                   </p>
-                  <p>
+                  <p class="card-text">
                     <span>{{ clickbaitsString }}</span>
                   </p>
-                </div>
-              </div>
-            </div>
+                </b-card-body>
+              </b-collapse>
+            </b-card>
           </div>
-
         </div>
       </div>
       <h3>Analizowany news</h3>
@@ -185,7 +184,9 @@
 import Vue from 'vue'
 import Resource from 'vue-resource'
 import VueScrollTo from 'vue-scrollto'
+
 import BootstrapVue from 'bootstrap-vue'
+import { Collapse } from 'bootstrap-vue/es/components'
 
 import fontawesome from '@fortawesome/fontawesome'
 import {FontAwesomeLayers, FontAwesomeIcon} from '@fortawesome/vue-fontawesome'
@@ -198,7 +199,8 @@ import faChevronUp from '@fortawesome/fontawesome-free-solid/faChevronUp'
 
 fontawesome.library.add(faSpinner, faTimes, faCheck, faQuestionCircle, faChevronDown, faChevronUp)
 
-Vue.use(Resource, BootstrapVue)
+Vue.use(Resource)
+Vue.use(BootstrapVue, Collapse)
 
 let noneString = 'BRAK'
 
@@ -212,6 +214,16 @@ let sourceRelevanceUnknown = 0
 //   sourceRelevanceUncertain = 1,
 //   sourceRelevanceSoso = 2,
 //   sourceRelevanceTrusted = 3;
+
+let foundSimilarNewsString = 'Znaleziono portale, które napisały na podobny temat:'
+// "Brak danych w systemie na temat podanego źródła."
+// "News, który sprawdzasz pochodzi z portalu, na którym można znaleźć fake-newsy lub clickbaity (wniosek na podstawie [X] przeanalizowanych newsów).
+// "News, który sprawdzasz pochodzi z portalu, który przeważnie zawiera wiarygodne informacje, jednak można na nim czasem znaleźć artykuły o wątpliwej jakości (wniosek na podstawie [X] przeanalizowanych newsów).
+// "News, który sprawdzasz pochodzi z portalu, który oceniany jest jako źródło wiarygodnych informacji (wniosek na podstawie [X] przeanalizowanych newsów).
+
+let clickbaitsNone = 0
+let clickbaitsFew = 1
+let clickbaitsPlenty = 2
 
 let scrollOptions = {
   // container: '#fact-analysis',
@@ -243,7 +255,6 @@ export default {
 
       similarNewsState: unknown,
       similarNewsDecision: noneString,
-      // <span id="criteria-no-similar">BRAK</span></strong><span id="criteria-found-similar">Znaleziono portale, które napisały na podobny temat:</span>
       similarNewsList: [],
 
       analyzedHeader: null,
@@ -252,6 +263,40 @@ export default {
       clickbaitsState: unknown,
       clickbaitsDecision: noneString,
       clickbaitsString: noneString
+    }
+  },
+  computed: {
+    criteriaAuthor: function () {
+      return {
+        unknown: this.authorState === unknown,
+        loading: this.authorState === loading,
+        checkedTrue: this.authorState === checkedTrue,
+        checkedFalse: this.authorState === checkedFalse
+      }
+    },
+    criteriaRelevance: function () {
+      return {
+        unknown: this.sourceRelevanceState === unknown,
+        loading: this.sourceRelevanceState === loading,
+        checkedTrue: this.sourceRelevanceState === checkedTrue,
+        checkedFalse: this.sourceRelevanceState === checkedFalse
+      }
+    },
+    criteriaSimilar: function () {
+      return {
+        unknown: this.similarNewsState === unknown,
+        loading: this.similarNewsState === loading,
+        checkedTrue: this.similarNewsState === checkedTrue,
+        checkedFalse: this.similarNewsState === checkedFalse
+      }
+    },
+    criteriaClickbaits: function () {
+      return {
+        unknown: this.clickbaitsState === unknown,
+        loading: this.clickbaitsState === loading,
+        checkedTrue: this.clickbaitsState === checkedTrue,
+        checkedFalse: this.clickbaitsState === checkedFalse
+      }
     }
   },
   methods: {
@@ -276,16 +321,55 @@ export default {
           // scrollOptions.offset = - navbarHeight;
           VueScrollTo.scrollTo(container, 400, scrollOptions)
 
-          this.analyzedHeader = response.body.title
-          this.analyzedBody = response.body.text
-
           console.log(response.body)
-          if (response.body.authors_score > 0) {
+          if (response.body.authors_score === null) {
+            _thisRef.authorState = unknown
+            _thisRef.newsAuthorDecision = noneString
+          } else if (response.body.authors_score > 0) {
             _thisRef.authorState = checkedTrue
+            _thisRef.newsAuthorDecision = response.body.authors
           } else {
             _thisRef.authorState = checkedFalse
-            this.newsAuthorDecision = noneString
+            _thisRef.newsAuthorDecision = noneString
           }
+
+          _thisRef.sourceRelevanceState = unknown
+
+          if (response.body.neighbours_count === null) {
+            _thisRef.similarNewsState = unknown
+            _thisRef.similarNewsDecision = null
+            _thisRef.similarNewsList = null
+          } else if (response.body.neighbours_count >= 1) {
+            _thisRef.similarNewsState = checkedTrue
+            _thisRef.similarNewsDecision = foundSimilarNewsString
+            // transform to list of dicts
+            _thisRef.similarNewsList = response.body.neighbours
+          } else {
+            _thisRef.similarNewsState = checkedFalse
+            _thisRef.similarNewsDecision = noneString
+            _thisRef.similarNewsList = null
+          }
+
+          _thisRef.clickbaitsString = response.body.clickbait_score
+          if (response.body.clickbait_score === null) {
+            _thisRef.clickbaitsState = unknown
+            _thisRef.clickbaitsDecision = null
+            // _thisRef.clickbaitsString
+          } else if (response.body.clickbait_score >= 0.66) {
+            _thisRef.clickbaitsState = checkedTrue
+            _thisRef.clickbaitsDecision = clickbaitsNone
+            // _thisRef.clickbaitsString
+          } else if (response.body.clickbait_score >= 0.33) {
+            _thisRef.clickbaitsState = checkedFalse
+            _thisRef.clickbaitsDecision = clickbaitsFew
+          } else {
+            _thisRef.clickbaitsState = checkedFalse
+            _thisRef.clickbaitsDecision = clickbaitsPlenty
+            // _thisRef.clickbaitsString
+          }
+
+          _thisRef.analyzedHeader = response.body.title
+          _thisRef.analyzedBody = response.body.text
 
           _thisRef.loading = false
         })
