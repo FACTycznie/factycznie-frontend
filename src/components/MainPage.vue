@@ -22,7 +22,7 @@
         <div class="col">
           <div id="fact-criteria" role="tablist">
             <b-card no-body class="mb-1">
-              <b-card-header header-tag="header" class="p-1" role="tab">
+              <b-card-header header-tag="header" role="tab">
                 <b-btn block href="#" v-b-toggle.criteriaAuthor variant="info" class="mb-0 d-flex justify-content-between">
                   <span class="loader">
                     <font-awesome-icon icon="spinner" pulse v-if="criteriaAuthor.loading" />
@@ -52,7 +52,7 @@
             </b-card>
 
             <b-card no-body class="mb-1">
-              <b-card-header header-tag="header" class="p-1" role="tab">
+              <b-card-header header-tag="header" role="tab">
                 <b-btn block href="#" v-b-toggle.criteriaRelevance variant="info" class="mb-0 d-flex justify-content-between">
                   <span>
                     <font-awesome-icon icon="spinner" pulse v-if="criteriaRelevance.loading" />
@@ -82,7 +82,7 @@
             </b-card>
 
             <b-card no-body class="mb-1">
-              <b-card-header header-tag="header" class="p-1" role="tab">
+              <b-card-header header-tag="header" role="tab">
                 <b-btn block href="#" v-b-toggle.criteriaSimilar variant="info" class="mb-0 d-flex justify-content-between">
                   <span>
                     <font-awesome-icon icon="spinner" pulse v-if="criteriaSimilar.loading" />
@@ -107,17 +107,17 @@
                   <p class="card-text">
                     <strong>Podobne newsy: <span>{{ similarNewsDecision }}</span></strong>
                   </p>
-                  <!--<ul id="criteria-neighbours-list">-->
-                    <!--<li v-for="{newsId, newsName, newsHref} in similarNewsList" :key="`news-${newsId}`">-->
-                      <!--<a :href="newsHref">{{ newsName }}</a>-->
-                    <!--</li>-->
-                  <!--</ul>-->
+                  <ul id="criteria-neighbours-list">
+                    <li v-for="news in similarNewsList" :key="news.url">
+                      <a :href="news.url">{{ news.text }}</a>
+                    </li>
+                  </ul>
                 </b-card-body>
               </b-collapse>
             </b-card>
 
             <b-card no-body class="mb-1">
-              <b-card-header header-tag="header" class="p-1" role="tab">
+              <b-card-header header-tag="header" role="tab">
                 <b-btn block href="#" v-b-toggle.criteriaClickbaits variant="info" class="mb-0 d-flex justify-content-between">
                   <span>
                     <font-awesome-icon icon="spinner" pulse v-if="criteriaClickbaits.loading" />
@@ -334,38 +334,47 @@ export default {
           }
 
           _thisRef.sourceRelevanceState = unknown
+          _thisRef.similarNewsList = []
+          response.body.neighbours.map(function (value, key) {
+            console.log(value)
+            _thisRef.similarNewsList.push({
+              'url': value[2],
+              'text': value[1]
+            })
+          })
 
           if (response.body.neighbours_count === null) {
             _thisRef.similarNewsState = unknown
             _thisRef.similarNewsDecision = null
-            _thisRef.similarNewsList = null
           } else if (response.body.neighbours_count >= 1) {
             _thisRef.similarNewsState = checkedTrue
             _thisRef.similarNewsDecision = foundSimilarNewsString
             // transform to list of dicts
-            _thisRef.similarNewsList = response.body.neighbours
           } else {
             _thisRef.similarNewsState = checkedFalse
             _thisRef.similarNewsDecision = noneString
-            _thisRef.similarNewsList = null
           }
 
-          _thisRef.clickbaitsString = response.body.clickbait_score
+          _thisRef.clickbaitsString = ''
+          response.body.clickbait_spans.map(function (value, key) {
+            if (key !== 0) {
+              _thisRef.clickbaitsString += ', '
+            }
+            _thisRef.clickbaitsString += value[0]
+          })
+
           if (response.body.clickbait_score === null) {
             _thisRef.clickbaitsState = unknown
             _thisRef.clickbaitsDecision = null
-            // _thisRef.clickbaitsString
           } else if (response.body.clickbait_score >= 0.66) {
             _thisRef.clickbaitsState = checkedTrue
             _thisRef.clickbaitsDecision = clickbaitsNone
-            // _thisRef.clickbaitsString
           } else if (response.body.clickbait_score >= 0.33) {
             _thisRef.clickbaitsState = checkedFalse
             _thisRef.clickbaitsDecision = clickbaitsFew
           } else {
             _thisRef.clickbaitsState = checkedFalse
             _thisRef.clickbaitsDecision = clickbaitsPlenty
-            // _thisRef.clickbaitsString
           }
 
           _thisRef.analyzedHeader = response.body.title

@@ -4,6 +4,7 @@ $body-gray: rgba(246, 246, 242, 1);
 $footer-black: rgba(51, 51, 51, 1);
 $span-red: rgb(219, 88, 100);
 $collapse-gray: #8b95a4;
+$collapse-gray-hover: #707782; // -1 sat -13 val
 $text-gray: rgb(246, 246, 242);
 $search-yellow: #E6C05E;
 
@@ -91,24 +92,25 @@ h3 {
  * O wiarygodności newsa
  */
 
-//@import url("https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css");
-//.card-header > a:before {
-//    float: right !important;
-//    font-family: FontAwesome;
-//    content:"\f055";
-//    padding-right: 5px;
-//}
-//.card-header > a.collapsed:before {
-//    float: right !important;
-//    content:"\f056";
-//}
-
 .card-header {
+  padding: 0;
 
-  background: $collapse-gray;
-  //height: 54px;
-  border-radius: 0px;
-  cursor: pointer;
+  .btn {
+    background: $collapse-gray;
+    border: none;
+    border-radius: 0;
+    //#17a2b8 188 88 72
+    //#138496 188 87 59 hover
+    color: $text-gray;
+    font-size: 1.25rem;
+    padding: 0.75rem 1.25rem;
+
+    &:hover, &:focus, &:not(:disabled):not(.disabled):active, &:not(:disabled):not(.disabled):active:focus {
+      background: $collapse-gray-hover;
+      border: none;
+      box-shadow: none;
+    }
+  }
 
   .criteria-true {
     color: $true-green;
@@ -116,14 +118,9 @@ h3 {
   .criteria-false {
     color: $false-red;
   }
-
-  h5 {
-    color: $text-gray;
-  }
 }
 
 .card-body {
-
   a, a:hover, p span {
     color: $span-red;
   }
@@ -148,10 +145,6 @@ h3 {
     white-space: pre-wrap;
   }
 }
-
-
-
-
 
 /*******************************
  * Oceń wiarygodność
