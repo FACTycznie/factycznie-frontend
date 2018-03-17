@@ -315,7 +315,7 @@ export default {
       let _thisRef = this
 
       this.$http
-        .get('http://localhost:8000/api/document/evaluation', { params: params }).then(function (response) {
+        .get('/api/document/evaluation', { params: params }).then(function (response) {
           let container = this.$el.querySelector('#fact-analysis')
           // let navbarHeight = this.$refs.factNavbar.clientHeight;
           // scrollOptions.offset = - navbarHeight;
