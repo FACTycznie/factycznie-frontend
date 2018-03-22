@@ -221,10 +221,6 @@ let foundSimilarNewsString = 'Znaleziono portale, które napisały na podobny te
 // "News, który sprawdzasz pochodzi z portalu, który przeważnie zawiera wiarygodne informacje, jednak można na nim czasem znaleźć artykuły o wątpliwej jakości (wniosek na podstawie [X] przeanalizowanych newsów).
 // "News, który sprawdzasz pochodzi z portalu, który oceniany jest jako źródło wiarygodnych informacji (wniosek na podstawie [X] przeanalizowanych newsów).
 
-let clickbaitsNone = 0
-let clickbaitsFew = 1
-let clickbaitsPlenty = 2
-
 let scrollOptions = {
   // container: '#fact-analysis',
   easing: 'ease-in',
@@ -321,7 +317,6 @@ export default {
           // scrollOptions.offset = - navbarHeight;
           VueScrollTo.scrollTo(container, 400, scrollOptions)
 
-          console.log(response.body)
           if (response.body.authors_score === null) {
             _thisRef.authorState = unknown
             _thisRef.newsAuthorDecision = noneString
@@ -336,7 +331,6 @@ export default {
           _thisRef.sourceRelevanceState = unknown
           _thisRef.similarNewsList = []
           response.body.neighbours.map(function (value, key) {
-            console.log(value)
             _thisRef.similarNewsList.push({
               'url': value[2],
               'text': value[1]
@@ -355,6 +349,23 @@ export default {
             _thisRef.similarNewsDecision = noneString
           }
 
+          _thisRef.clickbaitsDecision = response.body.clickbait_spans.length
+          if (_thisRef.clickbaitsDecision === null) {
+            _thisRef.clickbaitsState = unknown
+            _thisRef.clickbaitsDecision = null
+          } else if (_thisRef.clickbaitsDecision === 0) {
+            _thisRef.clickbaitsState = checkedTrue
+          } else {
+            _thisRef.clickbaitsState = checkedFalse
+          }
+
+          if (_thisRef.clickbaitsDecision === 0) {
+            _thisRef.clickbaitsDecision = noneString
+          }
+
+          _thisRef.analyzedHeader = response.body.title
+          _thisRef.analyzedBody = response.body.text
+
           _thisRef.clickbaitsString = ''
           response.body.clickbait_spans.map(function (value, key) {
             if (key !== 0) {
@@ -362,23 +373,6 @@ export default {
             }
             _thisRef.clickbaitsString += value[0]
           })
-
-          if (response.body.clickbait_score === null) {
-            _thisRef.clickbaitsState = unknown
-            _thisRef.clickbaitsDecision = null
-          } else if (response.body.clickbait_score >= 0.66) {
-            _thisRef.clickbaitsState = checkedTrue
-            _thisRef.clickbaitsDecision = clickbaitsNone
-          } else if (response.body.clickbait_score >= 0.33) {
-            _thisRef.clickbaitsState = checkedFalse
-            _thisRef.clickbaitsDecision = clickbaitsFew
-          } else {
-            _thisRef.clickbaitsState = checkedFalse
-            _thisRef.clickbaitsDecision = clickbaitsPlenty
-          }
-
-          _thisRef.analyzedHeader = response.body.title
-          _thisRef.analyzedBody = response.body.text
 
           _thisRef.loading = false
         })
