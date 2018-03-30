@@ -18,6 +18,7 @@
     "@fortawesome/fontawesome-free-solid": "^5.0.6",
     "@fortawesome/vue-fontawesome": "^0.0.22",
     "bootstrap-vue": "^2.0.0-rc.1",
+    "coveralls": "^3.0.0",
     "express": "^4.16.2",
     "vue": "^2.5.2",
     "vue-resource": "^1.4.0",

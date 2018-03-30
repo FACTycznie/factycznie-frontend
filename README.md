@@ -1,4 +1,5 @@
 # factycznie
+[![Build Status](https://travis-ci.org/FACTycznie/factycznie-frontend.svg?branch=master)](https://travis-ci.org/FACTycznie/factycznie-frontend)
 
 > A Vue.js project
 
