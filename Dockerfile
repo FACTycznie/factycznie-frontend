@@ -1,16 +1,4 @@
-FROM node:alpine
+FROM nginx:alpine
 
-WORKDIR /app
-
-COPY package*.json ./
-
-RUN npm install
-
-COPY . .
-
-RUN npm run build
-
-ENV PORT=5000
-EXPOSE 5000
-
-CMD [ "npm", "start" ]
+COPY dist/ /usr/share/nginx/html/
+COPY nginx/nginx.conf /etc/nginx/conf.d/default.conf

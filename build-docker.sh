@@ -1,3 +1,3 @@
 #!/bin/sh
 
-docker build -t factycznie/factycznie_frontend .
+docker build -t factycznie_frontend -f Dockerfile.development .

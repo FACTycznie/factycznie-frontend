@@ -300,6 +300,8 @@ export default {
       this.authorState = this.sourceRelevanceState = this.similarNewsState = this.clickbaitsState = loading
       this.loading = true
       this.showAnalysis = true
+      this.analyzedHeader = null
+      this.analyzedBody = null
 
       let params = null
       if (url !== null) {
