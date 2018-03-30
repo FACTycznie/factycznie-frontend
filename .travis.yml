@@ -9,7 +9,7 @@ before_install:
   - docker build -t factycznie/factycznie-frontend .
 
 script:
-  - npm run unit
+  - npm test
 
 deploy:
   provider: script
