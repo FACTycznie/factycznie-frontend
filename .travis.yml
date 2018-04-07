@@ -3,6 +3,10 @@ sudo: required
 services:
   - docker
 
+branches:
+  only:
+    - master
+
 before_install:
   - npm install
   - npm run build
