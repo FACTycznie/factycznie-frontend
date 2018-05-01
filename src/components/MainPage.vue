@@ -23,36 +23,6 @@
           <div id="fact-criteria" role="tablist">
             <b-card no-body class="mb-1">
               <b-card-header header-tag="header" role="tab">
-                <b-btn block href="#" v-b-toggle.criteriaAuthor variant="info" class="mb-0 d-flex justify-content-between">
-                  <span class="loader">
-                    <font-awesome-icon icon="spinner" pulse v-if="criteriaAuthor.loading" />
-                    <font-awesome-icon icon="question-circle" v-if="criteriaAuthor.unknown" />
-                    <font-awesome-icon icon="times" class="criteria-false" v-if="criteriaAuthor.checkedFalse" />
-                    <font-awesome-icon icon="check" class="criteria-true" v-if="criteriaAuthor.checkedTrue" />
-                    Autor
-                  </span>
-                  <span>
-                    <font-awesome-icon icon="chevron-down" />
-                    <!--<font-awesome-icon icon="chevron-up" />-->
-                  </span>
-                </b-btn>
-              </b-card-header>
-              <b-collapse id="criteriaAuthor" accordion="criteria-accordion" role="tabpanel">
-                <b-card-body>
-                  <p class="card-text">
-                    Jeśli ktoś podpisuje się swoim nazwiskiem, nie boi się, że jego nazwisko zostanie powiązane z tekstem.
-                    Taki tekst wydaje się być bardziej wiarygodny od niepodpisanego. Sprawdź, czy autor postu istnieje i pisał
-                    wcześnej na podobne tematy.
-                  </p>
-                  <p class="card-text">
-                    <strong>Autor analizowanego newsa: <span>{{ newsAuthorDecision }}</span></strong>
-                  </p>
-                </b-card-body>
-              </b-collapse>
-            </b-card>
-
-            <b-card no-body class="mb-1">
-              <b-card-header header-tag="header" role="tab">
                 <b-btn block href="#" v-b-toggle.criteriaRelevance variant="info" class="mb-0 d-flex justify-content-between">
                   <span>
                     <font-awesome-icon icon="spinner" pulse v-if="criteriaRelevance.loading" />
@@ -147,15 +117,6 @@
                 </b-card-body>
               </b-collapse>
             </b-card>
-          </div>
-        </div>
-      </div>
-      <h3>Analizowany news</h3>
-      <div class="row">
-        <div class="col">
-          <div class="container" id="analyzed-text">
-            <h4 class="text-center">{{ analyzedHeader }}</h4>
-            <div>{{ analyzedBody }}</div>
           </div>
         </div>
       </div>
